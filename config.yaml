@@ -1,0 +1,11 @@
+server:
+  port: 8080
+  read_timeout: 5s
+  write_timeout: 10s
+
+cache:
+  ttl: 30m
+
+scraper:
+  user_agent: "rssify/1.0"
+  request_timeout: 15s
