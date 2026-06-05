@@ -3,7 +3,7 @@ IMAGE   := rssify
 VERSION := $(shell git describe --tags --always --dirty 2>/dev/null || echo dev)
 LDFLAGS := -s -w -X main.version=$(VERSION)
 
-.PHONY: all build test vet fmt lint clean run docker-build docker-run help
+.PHONY: all build test vet fmt lint clean run podman-build podman-run help
 
 all: vet test build ## Run vet, test, and build
 
@@ -36,11 +36,11 @@ clean: ## Remove build artifacts
 run: build ## Build and run the server
 	./$(BINARY)
 
-docker-build: ## Build Docker image
-	docker build -t $(IMAGE):$(VERSION) -t $(IMAGE):latest .
+podman-build: ## Build container image
+	podman build -t $(IMAGE):$(VERSION) -t $(IMAGE):latest .
 
-docker-run: docker-build ## Build and run Docker container
-	docker run --rm -p 8080:8080 $(IMAGE):latest
+podman-run: podman-build ## Build and run container
+	podman run --rm -p 8080:8080 $(IMAGE):latest
 
 help: ## Show this help
 	@grep -E '^[a-zA-Z_-]+:.*?## ' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "  %-16s %s\n", $$1, $$2}'

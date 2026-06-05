@@ -20,11 +20,11 @@ go build -o rssify .
 ./rssify
 ```
 
-### Run with Docker
+### Run with Podman
 
 ```sh
-docker build -t rssify .
-docker run -p 8080:8080 rssify
+podman build -t rssify .
+podman run -p 8080:8080 rssify
 ```
 
 Then add `http://localhost:8080/feeds/anthropic-news` to your RSS reader.
